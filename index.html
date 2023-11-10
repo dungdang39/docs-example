@@ -29,7 +29,7 @@ list-style: none;
   #navbar {
     width: 200px;
     background-color: #fff;
-    border-left: 1px solid #c9c9c9;
+    border-left: 1px solid #dddddd;
   }
   #navbar ul {
     position: sticky;
@@ -37,15 +37,15 @@ list-style: none;
     padding: 20px 0px;
   }
   #navbar ul li {
-    font-size: 14px;
+    font-size: 16px;
   }
   #navbar ul li.subTitle {
     text-indent: 12px;
-    font-size: 13px;
+    font-size: 14px;
   }
   #navbar a {
     display: block;
-    padding: 12px 16px;
+    padding: 12px 32px;
     text-decoration: none;
     text-align: left;
     color: #c9c9c9;
@@ -55,21 +55,28 @@ list-style: none;
     color: #0A3996;
   }
   article {
-    margin-bottom: 20px;
+    padding: 20px;
+    margin-bottom: 60px;
     width: calc(100% - 200px);
     margin-right: auto;
   }
+  h1 {
+    font-size: 40px;
+    padding-top: 40px;
+  }
   h2 {
+    font-size: 32px;
     color: #0A3996;
     padding: 30px 0px 10px;
     scroll-margin-top: 60px;
   }
   h3 {
+    font-size: 24px;
     padding: 30px 0px 20px;
     scroll-margin-top: 60px;
   }
   h2 a, h3 a {
-    opacity: 0;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+    opacity: 0;                             
     transition: all 0.2s;
     color: #FAE062;
     margin-left: 8px;
@@ -78,12 +85,13 @@ list-style: none;
     opacity: 1;
   }
   section {
-    padding: 40px 20px;
+    padding: 40px 0px;
   }
   section p {
     line-height: 1.6;
     margin-bottom: 40px;
     color: #474747;
+    font-size: 18px;
   }
   footer {
     height: 200px;
@@ -119,8 +127,8 @@ list-style: none;
             <li class="subTitle"><a href="#sec3sub3">Subtitle 3</a></li>
        </ul>
     </aside>
-      
       <article>
+          <h1>DOCs-sample</h1>
           <section>
               <h2 class="data-step" id="section1">Title 1<a href="#section1">#</a></h2>
               <h3 class="data-step" id="sec1sub1">Subtitle 1<a href="#sec1sub1">#</a></h3>
@@ -178,26 +186,21 @@ list-style: none;
  window.addEventListener("scroll", () => {
     const sections = document.querySelectorAll(".data-step");
     const gnbItems = document.querySelectorAll("#navbar ul li");
-
-    let currentActiveSectionIndex = -1;
-
+    
+    let activeSectorList = []
 
     sections.forEach((section, index) => {
         const top = window.scrollY; //현재 Y값
         const sectionTop = section.offsetTop - 100; // 섹션 상단의 Y값 - Gnb메뉴 높이 값
         const sectionHeight = section.offsetHeight; // 섹션 높이
-
-        if(top < 60) {
-            currentActiveSectionIndex = -1
-            return
-        }
+    
         if (top >= sectionTop) {
-            currentActiveSectionIndex = Math.max(index);
+            activeSectorList.push(index)
         }
     });
 
     gnbItems.forEach((gnbItem, index) => {
-        if (index <= currentActiveSectionIndex) {
+        if (index <= Math.max(...activeSectorList)) {
             gnbItem.classList.add("active");
         } else {
             gnbItem.classList.remove("active");
